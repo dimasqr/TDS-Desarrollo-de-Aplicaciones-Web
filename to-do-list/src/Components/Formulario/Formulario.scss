@@ -1,0 +1,48 @@
+$primary: #b0f5c1;
+$secondary: #d3c8fc;
+
+.mb-3 {
+  text-align: left;
+}
+
+.goal-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.goal-form .form-label {
+  text-align: left;
+  font-weight: 500;
+}
+
+.goal-form .form-control {
+  width: 100%;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.add-goal-btn {
+  margin-top: 20px;
+  background-color: $secondary;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  width: 60%;
+  color: black;
+  font-weight: 500;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken($secondary, 10%);
+  }
+}
