@@ -9,8 +9,13 @@ import "./Menu.scss";
 
 function Menu() {
   const [showModal, setShowModal] = useState(false);
+  const [type, setType] = useState("Goal");
 
-  const handleShow = () => setShowModal(true);
+  const handleShow = (type) => {
+    setType(type);
+    setShowModal(true);
+  };
+
   const handleClose = () => setShowModal(false);
 
   return (
@@ -29,22 +34,19 @@ function Menu() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#tasks">Tasks</Nav.Link>
-              <Nav.Link onClick={handleShow}>Goals</Nav.Link>{" "}
-              {/* Click abre modal */}
+              <Nav.Link onClick={() => handleShow("Task")}>Tasks</Nav.Link>
+              <Nav.Link onClick={() => handleShow("Goal")}>Goals</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
-      {/* Modal */}
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Add Goal</Modal.Title>
+          <Modal.Title>Add {type}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Formulario */}
-          <Formulario />
+          <Formulario type={type} onClose={handleClose} />
         </Modal.Body>
       </Modal>
     </>

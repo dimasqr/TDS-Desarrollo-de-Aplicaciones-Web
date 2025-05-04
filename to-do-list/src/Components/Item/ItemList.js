@@ -1,25 +1,18 @@
 import Item from "./Item";
+import { useSelector } from "react-redux";
 
 function ItemList() {
-  const items = [
-    {
-      name: "Proyecto de Curso de desarrollo web",
-      description:
-        "Elaborar una aplicación web responsive en la que se pueda llevar control de mis metas y tareas personales",
-      dueDate: "31/05/2024",
-    },
-    {
-      name: "Terminar de leer libro",
-      description: "Finalizar mi libro de react.",
-      dueDate: "31/05/2024",
-    },
-  ];
+  const tasks = useSelector((state) => state.tasks.items);
+  const goals = useSelector((state) => state.goals.items);
+
+  const combined = [...goals, ...tasks];
 
   return (
     <div>
-      {items.map((item, index) => (
+      {combined.map((item, index) => (
         <Item
           key={index}
+          index={index}
           name={item.name}
           description={item.description}
           dueDate={item.dueDate}

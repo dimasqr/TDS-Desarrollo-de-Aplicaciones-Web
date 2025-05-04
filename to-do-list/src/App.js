@@ -1,48 +1,45 @@
-import logo from "./logo.svg";
-import "./App.scss";
+import React from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import Item from "./Components/Item/Item";
-import Menu from "./Components/Menu/Menu";
 import Formulario from "./Components/Formulario/Formulario";
-import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import Menu from "./Components/Menu/Menu";
 
 function App() {
-  const items = [
-    {
-      name: "Proyecto de Curso de desarrollo web",
-      description:
-        "Elaborar una aplicación web responsive en la que se pueda llevar control de mis metas y tareas personales",
-      dueDate: "31/05/2024",
-    },
-    {
-      name: "Terminar de leer libro",
-      description: "Finalizar mi libro de react.",
-      dueDate: "31/05/2024",
-    },
-    {
-      name: "Subit actividad 1",
-      description:
-        "Responder el test en el GES correspondiente a la actividad 1",
-      dueDate: "31/05/2024",
-    },
-  ];
+  const tasks = useSelector((state) => state.tasks.items);
+  const goals = useSelector((state) => state.goals.items);
 
   return (
     <div className="App">
       <Menu />
       <Container>
         <Row>
-          <Col>
-            <Formulario />
+          <Col md={4}>
+            <Formulario type="goal" />
+            <Formulario type="task" />
           </Col>
-          <Col>
-            {items.map((item, index) => (
+          <Col md={8}>
+            <h4>Goals</h4>
+            {goals.map((goal, index) => (
               <Item
-                key={index}
-                name={item.name}
-                description={item.description}
-                dueDate={item.dueDate}
+                key={`goal-${index}`}
+                index={index}
+                name={goal.name}
+                description={goal.description}
+                dueDate={goal.dueDate}
+                isTask={false}
+              />
+            ))}
+
+            <h4 className="mt-4">Tasks</h4>
+            {tasks.map((task, index) => (
+              <Item
+                key={`task-${index}`}
+                index={index}
+                name={task.name}
+                description={task.description}
+                dueDate={task.dueDate}
+                isTask={true}
               />
             ))}
           </Col>
