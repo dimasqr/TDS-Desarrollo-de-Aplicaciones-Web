@@ -36,7 +36,7 @@ Si no se incluye este header o la clave es incorrecta, la solicitud será rechaz
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tuusuario/nombre-del-repositorio.git
+git clonehttps://github.com/dimasqr/TDS-Desarrollo-de-Aplicaciones-Web.git
 cd to-do-list/backend
 ```
 
