@@ -53,3 +53,17 @@ npm start
 ```
 
 El backend estará disponible en: `http://localhost:3000`
+
+# Integración de MySQL
+
+## Requisitos
+
+- Node.js
+- MySQL
+- XAMPP (para ejecutar el servidor MySQL localmente)
+
+## Instalación
+
+1. **Descargar e instalar XAMPP**  
+   [Descargar XAMPP](https://www.apachefriends.org/es/index.html)  
+   Una vez descargado, instala XAMPP y asegúrate de que el servidor MySQL esté corriendo.
