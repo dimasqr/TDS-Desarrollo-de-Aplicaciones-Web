@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Cambia esto si tu backend está en otro puerto
 const API_URL = "http://localhost:3000";
 
 export const fetchGoals = createAsyncThunk("goals/fetchGoals", async () => {
