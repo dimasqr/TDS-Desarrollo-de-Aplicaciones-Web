@@ -6,12 +6,14 @@ var mysql = require("mysql");
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
+  password: "",
   database: "desarrolloweb",
+  port: 3307,
 });
 
 connection.connect(function (err) {
   if (err) {
-    console.err("Error connecting to the database: " + err.stack);
+    console.error("Error connecting to the database: " + err.stack);
     return;
   }
   console.log("Connected to the database as id " + connection.threadId);

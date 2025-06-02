@@ -13,7 +13,9 @@ const mysql = require("mysql");
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
+  password: "",
   database: "desarrolloweb",
+  port: 3307,
 });
 
 connection.connect(function (err) {
@@ -89,8 +91,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-// Middleware
-app.use((req, res, next) => {
+const cors = require("cors");
+app.use(cors());
+
+// Rutas públicas (sin autorización)
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+
+// Middleware solo para rutas protegidas
+app.use("/tasks", (req, res, next) => {
   if (req.headers.authorization && req.headers.authorization === "123") {
     next();
   } else {
@@ -98,9 +107,15 @@ app.use((req, res, next) => {
   }
 });
 
-// Routes
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/goals", (req, res, next) => {
+  if (req.headers.authorization && req.headers.authorization === "123") {
+    next();
+  } else {
+    res.status(401).json({ message: "Unauthorized" });
+  }
+});
+
+// Rutas protegidas
 app.use("/tasks", tasksRouter);
 app.use("/goals", goalsRouter);
 

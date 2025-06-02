@@ -2,13 +2,12 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./Formulario.scss";
 import { useDispatch } from "react-redux";
-import { addGoal } from "../../features/goals/goalsSlice";
-import { addTask } from "../../features/tasks/tasksSlice";
+import { addGoalAsync } from "../../features/goals/goalsSlice";
+import { addTaskAsync } from "../../features/tasks/tasksSlice";
 import { useState } from "react";
 
-function Formulario({ type }) {
+function Formulario({ type, onClose }) {
   const dispatch = useDispatch();
-
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
@@ -17,19 +16,19 @@ function Formulario({ type }) {
     e.preventDefault();
     const newItem = { name, description, dueDate };
 
-    if (type === "goal") dispatch(addGoal(newItem));
-    else dispatch(addTask(newItem));
+    if (type.toLowerCase() === "goal") dispatch(addGoalAsync(newItem));
+    else dispatch(addTaskAsync(newItem));
 
-    // Limpiar formulario
     setName("");
     setDescription("");
     setDueDate("");
+    if (onClose) onClose();
   };
 
   return (
     <Form className="goal-form mb-4" onSubmit={handleSubmit}>
       <h3>{type === "goal" ? "Agregar Goal" : "Agregar Task"}</h3>
-      <Form.Group className="mb-3" controlId={`formName-${type}`}>
+      <Form.Group className="mb-3">
         <Form.Label>Name</Form.Label>
         <Form.Control
           type="text"
@@ -38,7 +37,7 @@ function Formulario({ type }) {
           required
         />
       </Form.Group>
-      <Form.Group className="mb-3" controlId={`formDescription-${type}`}>
+      <Form.Group className="mb-3">
         <Form.Label>Description</Form.Label>
         <Form.Control
           as="textarea"
@@ -47,7 +46,7 @@ function Formulario({ type }) {
           onChange={(e) => setDescription(e.target.value)}
         />
       </Form.Group>
-      <Form.Group className="mb-3" controlId={`formDueDate-${type}`}>
+      <Form.Group className="mb-3">
         <Form.Label>Due Date</Form.Label>
         <Form.Control
           type="date"
@@ -55,11 +54,9 @@ function Formulario({ type }) {
           onChange={(e) => setDueDate(e.target.value)}
         />
       </Form.Group>
-      <div className="button-container">
-        <Button className="add-goal-btn" type="submit">
-          {type === "goal" ? "ADD GOAL" : "ADD TASK"}
-        </Button>
-      </div>
+      <Button className="add-goal-btn" type="submit">
+        {type === "goal" ? "ADD GOAL" : "ADD TASK"}
+      </Button>
     </Form>
   );
 }

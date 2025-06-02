@@ -9,10 +9,10 @@ import "./Menu.scss";
 
 function Menu() {
   const [showModal, setShowModal] = useState(false);
-  const [type, setType] = useState("Goal");
+  const [type, setType] = useState("goal");
 
   const handleShow = (type) => {
-    setType(type);
+    setType(type.toLowerCase());
     setShowModal(true);
   };
 
@@ -34,8 +34,8 @@ function Menu() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link onClick={() => handleShow("Task")}>Tasks</Nav.Link>
-              <Nav.Link onClick={() => handleShow("Goal")}>Goals</Nav.Link>
+              <Nav.Link onClick={() => handleShow("task")}>Tasks</Nav.Link>
+              <Nav.Link onClick={() => handleShow("goal")}>Goals</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

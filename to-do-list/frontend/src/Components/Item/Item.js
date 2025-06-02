@@ -3,17 +3,17 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "./Item.scss";
 import { useDispatch } from "react-redux";
-import { removeTask } from "../../features/tasks/tasksSlice";
-import { removeGoal } from "../../features/goals/goalsSlice";
+import { deleteTaskAsync } from "../../features/tasks/tasksSlice";
+import { deleteGoalAsync } from "../../features/goals/goalsSlice";
 
 function Item({ name, description, dueDate, index, isTask }) {
   const dispatch = useDispatch();
 
   const handleRemove = () => {
     if (isTask) {
-      dispatch(removeTask(index));
+      dispatch(deleteTaskAsync(index));
     } else {
-      dispatch(removeGoal(index));
+      dispatch(deleteGoalAsync(index));
     }
   };
 
@@ -22,13 +22,11 @@ function Item({ name, description, dueDate, index, isTask }) {
       <Card.Body>
         <div className="content">
           <p>
-            <strong>Name</strong>
+            <strong>Name:</strong> {name}
           </p>
-          <p>{name}</p>
           <p>
-            <strong>Description</strong>
+            <strong>Description:</strong> {description}
           </p>
-          <p>{description}</p>
           <p>
             <strong>Due Date:</strong> {dueDate}
           </p>

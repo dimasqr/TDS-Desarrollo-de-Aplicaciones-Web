@@ -1,11 +1,22 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import Item from "./Components/Item/Item";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchGoals } from "./features/goals/goalsSlice";
+import { fetchTasks } from "./features/tasks/tasksSlice";
 import Formulario from "./Components/Formulario/Formulario";
 import Menu from "./Components/Menu/Menu";
+import Item from "./Components/Item/Item";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchGoals());
+    dispatch(fetchTasks());
+  }, [dispatch]);
+
   const tasks = useSelector((state) => state.tasks.items);
   const goals = useSelector((state) => state.goals.items);
 
@@ -22,8 +33,8 @@ function App() {
             <h4>Goals</h4>
             {goals.map((goal, index) => (
               <Item
-                key={`goal-${index}`}
-                index={index}
+                key={`goal-${goal.id || index}`}
+                index={goal.id}
                 name={goal.name}
                 description={goal.description}
                 dueDate={goal.dueDate}
@@ -34,8 +45,8 @@ function App() {
             <h4 className="mt-4">Tasks</h4>
             {tasks.map((task, index) => (
               <Item
-                key={`task-${index}`}
-                index={index}
+                key={`task-${task.id || index}`}
+                index={task.id}
                 name={task.name}
                 description={task.description}
                 dueDate={task.dueDate}
